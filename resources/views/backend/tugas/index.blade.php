@@ -13,13 +13,18 @@
             border-radius: 50px !important;
         }
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css"
+        integrity="sha512-kq3FES+RuuGoBW3a9R2ELYKRywUEQv0wvPTItv3DSGqjpbNtGWVdvT8qwdKkqvPzT93jp8tSF4+oN4IeTEIlQA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endpush
 @section('content')
     <div class="row" style="margin-top: -200px;">
         <div class="col-md-12">
             <div class="row">
                 <div class="col-12 col-xl-8 mb-xl-0">
-                    <h3 class="font-weight-bold text-white">Data Produk</h3>
+                    <h3 class="font-weight-bold text-white">Data Tugas</h3>
                 </div>
             </div>
         </div>
@@ -38,9 +43,8 @@
                                     <th width="5%">No</th>
                                     <th>Gambar</th>
                                     <th width="300px">Keterangan</th>
-                                    <th>Kategori</th>
-                                    <th>Harga</th>
-                                    {{-- <th width="5%"></th> --}}
+                                    <th>Kuota</th>
+                                    <th>Koin</th>
                                     <th width="5%"></th>
                                     <th width="5%"></th>
                                 </tr>
@@ -63,53 +67,25 @@
                         <input type="hidden" name="id" id="id">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Judul</label>
-                            <input name="judul_produk" id="judul_produk" type="text" placeholder="judul"
+                            <input name="judul_tugas" id="judul_tugas" type="text" placeholder="judul"
                                 class="form-control">
-                            <span class="text-danger error" style="font-size: 12px;" id="email_alert"></span>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">deskripsi</label>
-                            <textarea name="deskripsi" id="deskripsi" cols="30" rows="10" class="form-control" placeholder="keterangan"></textarea>
+                            <textarea name="keterangan" id="keterangan" cols="30" rows="10" class="form-control" placeholder="keterangan"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Jenis Produk</label>
-                            <select name="jenis_produk" class="form-control" id="jenis_produk">
-                                <option>Fashion</option>
-                                <option>Elektronik</option>
-                                <option>Makanan</option>
-                                <option>Minuman</option>
-                                <option>Hobi</option>
-                                <option>Rumah Tangga</option>
-                                <option>Otomotif</option>
-                                <option>Olahraga</option>
-                                <option>Alat Tulis</option>
-                                <option>Kosmetik</option>
-                                <option>Obat</option>
-                            </select>
+                            <label for="exampleInputPassword1">Kuota</label>
+                            <input type="number" class="form-control" placeholder="Kuota" id="kuota" name="kuota" required>
                         </div>
                         <div class="form-group">
-                            <label>Harga</label>
-                            <input name="harga" id="harga" type="number" placeholder="Harga" class="form-control">
+                            <label>Koin</label>
+                            <input name="koin" id="koin" type="number" placeholder="Koin" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label>Gambar 1 <span class="text-danger" style="font-size: 12px;">(Max size:
+                            <label>Gambar <span class="text-danger" style="font-size: 12px;">(Max size:
                                     500kb)</span></label>
                             <input name="gambar_1" id="gambar_1" type="file" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Gambar 2 <span class="text-danger" style="font-size: 12px;">(Max size:
-                                    500kb)</span></label>
-                            <input name="gambar_2" id="gambar_2" type="file" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Gambar 3 <span class="text-danger" style="font-size: 12px;">(Max size:
-                                    500kb)</span></label>
-                            <input name="gambar_3" id="gambar_3" type="file" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Gambar 4 <span class="text-danger" style="font-size: 12px;">(Max size:
-                                    500kb)</span></label>
-                            <input name="gambar_4" id="gambar_4" type="file" class="form-control">
                         </div>
                     </div>
                     <div class="modal-footer p-3">
@@ -122,15 +98,23 @@
     </div>
 @endsection
 @push('script')
+    {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             getData()
         })
 
+        $(document).ready(function() {
+            $('.select2').select2({
+                theme: "bootstrap"
+            });
+        });
+
         function getData() {
             $("#myTable").DataTable({
                 "ordering": false,
-                ajax: '/back/data-product',
+                ajax: '/back/data-tugas',
                 processing: true,
                 'language': {
                     'loadingRecords': '&nbsp;',
@@ -144,35 +128,11 @@
                     {
                         render: function(data, type, row, meta) {
                             return `<div class="row">
-                                     <div class="col-6 p-1">
+                                     <div class="col-12 p-1">
                                             <div class="card shadow" style="
                                                 background-size: cover; 
                                                 background-position: center; 
-                                                background-image: url('/gambar_produk/${row.gambar_1}'); 
-                                                aspect-ratio: 1/1; 
-                                                width: 100%;"></div>
-                                        </div>
-                                        <div class="col-6 p-1">
-                                            <div class="card shadow" style="
-                                                background-size: cover; 
-                                                background-position: center; 
-                                                background-image: url('/gambar_produk/${row.gambar_2}'); 
-                                                aspect-ratio: 1/1; 
-                                                width: 100%;"></div>
-                                        </div>
-                                        <div class="col-6 p-1">
-                                            <div class="card shadow" style="
-                                                background-size: cover; 
-                                                background-position: center; 
-                                                background-image: url('/gambar_produk/${row.gambar_3}'); 
-                                                aspect-ratio: 1/1; 
-                                                width: 100%;"></div>
-                                        </div>
-                                        <div class="col-6 p-1">
-                                            <div class="card shadow" style="
-                                                background-size: cover; 
-                                                background-position: center; 
-                                                background-image: url('/gambar_produk/${row.gambar_4}'); 
+                                                background-image: url('/gambar_tugas/${row.gambar_1}'); 
                                                 aspect-ratio: 1/1; 
                                                 width: 100%;"></div>
                                         </div>
@@ -181,46 +141,19 @@
                     },
                     {
                         render: function(data, type, row, meta) {
-                            return `${row.judul_produk} <br><br> <b>Deskripsi:</b><br>${row.deskripsi.slice(0, 150)} ...`
+                            return `${row.judul_wisata} <br><br> <b>Deskripsi:</b><br>${row.keterangan_tugas.slice(0, 150)} ...`
                         }
                     },
                     {
-                        data: "jenis_produk"
+                        render: function(data, type, row, meta){
+                            return `${row.kuota}`
+                        }
                     },
                     {
                         render: function(data, type, row, meta) {
-                            return `Rp. ${new Intl.NumberFormat().format(row.harga)}`
+                            return row.koin.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
                         }
                     },
-                    // {
-                    //     render: function(data, type, row, meta) {
-
-                    //         @if (Auth::user()->role == 'Admin')
-                                
-                    //             if (row.pilihan_ukm == "1") {
-                                    
-                    //                 return `<a href="javascript:void(0)" onclick="pilihanUKMData(${row.id},${row.pilihan_ukm})">
-                    //                         <i style="font-size: 1.5rem;" class="text-danger bi bi-fire"></i>
-                    //                     </a>`
-                    //             } else {
-                    //                 return `<a href="javascript:void(0)" onclick="pilihanUKMData(${row.id},${row.pilihan_ukm})">
-                    //                         <i style="font-size: 1.5rem;" class="text-secondary bi bi-fire"></i>
-                    //                     </a>`
-                    //             }
-                    //         @else 
-                    //             if (row.pilihan_ukm == "1") {
-                                    
-                    //                 return `<a>
-                    //                         <i style="font-size: 1.5rem;" class="text-danger bi bi-fire"></i>
-                    //                     </a>`
-                    //             } else {
-                    //                 return `<a>
-                    //                         <i style="font-size: 1.5rem;" class="text-secondary bi bi-fire"></i>
-                    //                     </a>`
-                    //             }
-                    //         @endif
-                    //     }
-                    // },
                     {
                         render: function(data, type, row, meta) {
                             return `<a data-toggle="modal" data-target="#modal"
@@ -257,10 +190,10 @@
             if (recipient) {
                 var modal = $(this)
                 modal.find('#id').val(cokData[0].id)
-                modal.find('#judul_produk').val(cokData[0].judul_produk)
-                modal.find('#deskripsi').val(cokData[0].deskripsi)
-                modal.find('#harga').val(cokData[0].harga)
-                modal.find('#jenis_produk').val(cokData[0].jenis_produk)
+                modal.find('#judul_wisata').val(cokData[0].judul_wisata)
+                modal.find('#keterangan').val(cokData[0].keterangan)
+                modal.find('#koin').val(cokData[0].koin)
+                modal.find('#kadaluarsa').val(cokData[0].kadaluarsa)
             }
         })
 
@@ -274,7 +207,7 @@
 
             axios({
                     method: 'post',
-                    url: formData.get('id') == '' ? '/back/store-product' : '/back/update-product',
+                    url: formData.get('id') == '' ? '/back/store-wisata' : '/back/update-wisata',
                     data: formData,
                 })
                 .then(function(res) {
@@ -320,50 +253,7 @@
             }).then((result) => {
 
                 if (result.value) {
-                    axios.post('/back/delete-product', {
-                            id
-                        })
-                        .then((response) => {
-                            if (response.data.responCode == 1) {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Berhasil',
-                                    timer: 2000,
-                                    showConfirmButton: false
-                                })
-
-                                $('#myTable').DataTable().clear().destroy();
-                                getData();
-
-                            } else {
-                                Swal.fire({
-                                    icon: 'warning',
-                                    title: 'Gagal...',
-                                    text: response.data.respon,
-                                })
-                            }
-                        }, (error) => {
-                            console.log(error);
-                        });
-                }
-
-            });
-        }
-
-        pilihanUKMData = (id, pilihan_ukm) => {
-            Swal.fire({
-                title: pilihan_ukm == '1' ? 'Ingin membatalkan data ini?' : 'Ingin memilih data ini?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                confirmButtonText: 'Ya',
-                cancelButtonColor: '#3085d6',
-                cancelButtonText: "Batal"
-
-            }).then((result) => {
-
-                if (result.value) {
-                    axios.post('/back/pilihan-UKM-product', {
+                    axios.post('/back/delete-wisata', {
                             id
                         })
                         .then((response) => {

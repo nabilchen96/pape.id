@@ -16,29 +16,34 @@ use Illuminate\Support\Facades\Route;
 //LANDING
 Route::get('/', 'App\Http\Controllers\WelcomeController@index');
 
-//LOGIN
+//LOGIN & REGISTER
 Route::get('/login', 'App\Http\Controllers\AuthController@login')->name('login');
 Route::post('/loginProses', 'App\Http\Controllers\AuthController@loginProses');
-
-//REGISTER
 Route::get('/register', 'App\Http\Controllers\AuthController@register');
 Route::post('/registerProses', 'App\Http\Controllers\AuthController@registerProses');
 
-//PRODUK DEPAN
-Route::get('/produk-detail/{id}', 'App\Http\Controllers\ProdukController@detail');
-Route::get('/produk', 'App\Http\Controllers\ProdukController@show');
-// Route::get('/produk/search', 'App\Http\Controllers\ProdukController@show');
 
-//PRODUK DEPAN
-Route::get('/berita-detail/{id}', 'App\Http\Controllers\BeritaController@detail');
-Route::get('/berita', 'App\Http\Controllers\BeritaController@show');
+//FILTER WISATA
+Route::get('/list-wisata', 'App\Http\Controllers\WisataController@list');
 
-//DISKUSI DATA DEPAN
-Route::get('/back/diskusi-produk/{id}', 'App\Http\Controllers\DiskusiProdukController@dataDetail');
-Route::get('/back/diskusi-berita/{id}', 'App\Http\Controllers\DiskusiBeritaController@dataDetail');
 
-//PROFIL DEPAN
-Route::get('/profil/{id}', 'App\Http\Controllers\UserProfilController@show');
+//DETAIL WISATA
+Route::get('/detail-wisata/{id}', 'App\Http\Controllers\WisataController@detail');
+
+
+//DETAIL PRODUK
+Route::get('/detail-produk/{id}', 'App\Http\Controllers\ProdukController@detail');
+
+
+Route::get('/tukar-koin', function(){
+    return view('frontend.tukar-koin');
+});
+
+//KOIN
+Route::get('/koin', function(){
+    return view('frontend.koin');
+});
+
 
 //BACKEND
 Route::group(['middleware' => 'auth'], function () {
@@ -60,6 +65,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/back/update-slider', 'App\Http\Controllers\SliderController@update');
     Route::post('/back/delete-slider', 'App\Http\Controllers\SliderController@delete');
 
+    //WISATA
+    Route::get('/back/wisata', 'App\Http\Controllers\WisataController@index');
+    Route::get('/back/data-wisata', 'App\Http\Controllers\WisataController@data');
+    Route::post('/back/store-wisata', 'App\Http\Controllers\WisataController@store');
+    Route::post('/back/update-wisata', 'App\Http\Controllers\WisataController@update');
+    Route::post('/back/delete-wisata', 'App\Http\Controllers\WisataController@delete');
+
     //PRODUCT
     Route::get('/back/product', 'App\Http\Controllers\ProdukController@index');
     Route::get('/back/data-product', 'App\Http\Controllers\ProdukController@data');
@@ -67,6 +79,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/back/update-product', 'App\Http\Controllers\ProdukController@update');
     Route::post('/back/delete-product', 'App\Http\Controllers\ProdukController@delete');
     Route::post('/back/pilihan-UKM-product', 'App\Http\Controllers\ProdukController@pilihanUKM');
+
+    //WISATA
+    Route::get('/back/tugas', 'App\Http\Controllers\TugasController@index');
+    Route::get('/back/data-tugas', 'App\Http\Controllers\TugasController@data');
+    Route::post('/back/store-tugas', 'App\Http\Controllers\TugasController@store');
+    Route::post('/back/update-tugas', 'App\Http\Controllers\TugasController@update');
+    Route::post('/back/delete-tugas', 'App\Http\Controllers\TugasController@delete');
 
     //BERITA
     Route::get('/back/beritas', 'App\Http\Controllers\BeritaController@index');

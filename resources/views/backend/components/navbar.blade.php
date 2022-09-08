@@ -14,13 +14,25 @@
             </a>
         </li>
         @if (Auth::user()->role == 'Admin')
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link" href="{{ url('back/slider') }}">
                     <i class="bi bi-images menu-icon"></i>
                     <span class="menu-title">Slider</span>
                 </a>
-            </li>
+            </li> --}}
         @endif
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url('back/wisata') }}">
+                <i class="bi bi-image-alt menu-icon"></i>
+                <span class="menu-title">Wisata</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url('back/tugas') }}">
+                <i class="bi bi-file-earmark-text menu-icon"></i>
+                <span class="menu-title">Tugas</span>
+            </a>
+        </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ url('back/product') }}">
                 <i class="bi bi-box-seam menu-icon"></i>
@@ -33,29 +45,29 @@
                 <span class="menu-title">Berita</span>
             </a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" href="{{ url('back/diskusi-produk') }}">
                 <i class="bi bi-chat-right-text menu-icon"></i>
                 <span class="menu-title">Diskusi Produk</span>
             </a>
-        </li>
-        <li class="nav-item">
+        </li> --}}
+        {{-- <li class="nav-item">
             <a class="nav-link" href="{{ url('back/diskusi-berita') }}">
                 <i class="bi bi-chat-right-text menu-icon"></i>
                 <span class="menu-title">Diskusi Berita</span>
             </a>
-        </li>
+        </li> --}}
         <li class="nav-item">
             <a class="nav-link" href="{{ url('back/profil') }}-{{ Auth::user()->id ?? 2 }}">
                 <i class="bi bi-person-fill menu-icon"></i>
                 <span class="menu-title">User Profil</span>
             </a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" href="https://drive.google.com/file/d/1PYG9t6BHHg1Xck_YQpt8j0jhNBnhhsB-/view?usp=sharing">
                 <i class="icon-paper menu-icon"></i>
                 <span class="menu-title">Panduan</span>
             </a>
-        </li>
+        </li> --}}
     </ul>
 </nav>

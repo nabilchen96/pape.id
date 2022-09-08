@@ -4,36 +4,38 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use App\Models\Produk;
+use App\Models\Wisata;
 use Auth;
 use Illuminate\Support\Facades\Validator;
 
-class ProdukController extends Controller
+class WisataController extends Controller
 {
     public function index(){
 
-        return view('backend.products.index');
+        return view('backend.wisata.index');
     }
 
     public function data(){
 
         $data_user = Auth::user();
 
-        $produk = DB::table('produks');
+        $wisata = DB::table('wisatas');
 
         if($data_user->role == 'Admin'){
-            $produk = $produk->get();
+            $wisata = $wisata->get();
         }else{
-            $produk = $produk->where('id_user', $data_user->id)->get();
+            $wisata = $wisata->where('id_user', $data_user->id)->get();
         }
 
         return response()->json([
-            'data'  => $produk, 
+            'data'  => $wisata, 
             'user'  => $data_user
         ]);
     }
 
     public function store(Request $request){
+
+        // dd($request->all());
 
         $validator = Validator::make($request->all(), [
             'gambar_1'      => 'required|mimes:png,jpg,JPEG,PNG|max: 1024',
@@ -41,11 +43,11 @@ class ProdukController extends Controller
             'gambar_3'      => 'nullable|mimes:png,jpg,JPEG,PNG|max: 1024',
             'gambar_4'      => 'nullable|mimes:png,jpg,JPEG,PNG|max: 1024',
 
-            'judul_produk'  => 'required',
-            'deskripsi'     => 'required', 
-            'jenis_produk'  => 'required', 
-            'deskripsi'     => 'required',
-            'harga'         => 'required',     
+            'judul_wisata'  => 'required',
+            'keterangan'    => 'required', 
+            'kadaluarsa'    => 'required', 
+            // 'interest'      => 'required',
+            'koin'          => 'required',     
         ]);
 
         if($validator->fails()){
@@ -55,38 +57,45 @@ class ProdukController extends Controller
         //wajib
         $gambar_1       = $request->gambar_1;
         $nama_gambar_1  = '1'.date('YmdHis.').$gambar_1->extension();
-        $gambar_1->move('gambar_produk', $nama_gambar_1);
+        $gambar_1->move('gambar_wisata', $nama_gambar_1);
 
         if($request->gambar_2){
             $gambar_2       = $request->gambar_2;
             $nama_gambar_2  = '2'.date('YmdHis.').$gambar_2->extension();
-            $gambar_2->move('gambar_produk', $nama_gambar_2);
+            $gambar_2->move('gambar_wisata', $nama_gambar_2);
         }
 
         if($request->gambar_3){
             $gambar_3       = $request->gambar_3;
             $nama_gambar_3  = '3'.date('YmdHis.').$gambar_3->extension();
-            $gambar_3->move('gambar_produk', $nama_gambar_3);
+            $gambar_3->move('gambar_wisata', $nama_gambar_3);
         }
 
         if($request->gambar_4){
             $gambar_4       = $request->gambar_4;
             $nama_gambar_4  = '4'.date('YmdHis.').$gambar_4->extension();
-            $gambar_4->move('gambar_produk', $nama_gambar_4);
+            $gambar_4->move('gambar_wisata', $nama_gambar_4);
+        }
+
+        if($request->gambar_5){
+            $gambar_5       = $request->gambar_5;
+            $nama_gambar_5  = '5'.date('YmdHis.').$gambar_5->extension();
+            $gambar_5->move('gambar_wisata', $nama_gambar_5);
         }
 
         //proses insert
-        $insert = Produk::insert([
-            'judul_produk'  => $request->judul_produk, 
-            'deskripsi'     => $request->deskripsi, 
+        $insert = Wisata::insert([
+            'judul_wisata'  => $request->judul_wisata, 
+            'keterangan'    => $request->keterangan, 
             'id_user'       => Auth::user()->id ?? 2,
-            'harga'         => $request->harga, 
-            'jenis_produk'  => $request->jenis_produk, 
+            'koin'          => $request->koin, 
+            'kadaluarsa'    => $request->kadaluarsa, 
+
             'gambar_1'      => $nama_gambar_1,
             'gambar_2'      => $nama_gambar_2 ?? "",
             'gambar_3'      => $nama_gambar_3 ?? "",
             'gambar_4'      => $nama_gambar_4 ?? "",
-            'stok'          => '9'
+            'gambar_5'      => $nama_gambar_5 ?? "",
         ]);
 
         return response()->json([
@@ -107,11 +116,10 @@ class ProdukController extends Controller
             'gambar_3'      => 'nullable|mimes:png,jpg,JPEG,PNG|max: 500',
             'gambar_4'      => 'nullable|mimes:png,jpg,JPEG,PNG|max: 500',
 
-            'judul_produk'  => 'required',
-            'deskripsi'     => 'required', 
-            'jenis_produk'  => 'required', 
-            'deskripsi'     => 'required',
-            'harga'         => 'required',     
+            'judul_wisata'  => 'required',
+            'keterangan'    => 'required', 
+            'kadaluarsa'    => 'required',     
+            'koin'          => 'required',     
         ]);
 
         if($validator->fails()){
@@ -121,40 +129,45 @@ class ProdukController extends Controller
         if($request->gambar_1){
             $gambar_1       = $request->gambar_1;
             $nama_gambar_1  = '1'.date('YmdHis.').$gambar_1->extension();
-            $gambar_1->move('gambar_produk', $nama_gambar_1);
+            $gambar_1->move('gambar_wisata', $nama_gambar_1);
         }
 
         if($request->gambar_2){
             $gambar_2       = $request->gambar_2;
             $nama_gambar_2  = '2'.date('YmdHis.').$gambar_2->extension();
-            $gambar_2->move('gambar_produk', $nama_gambar_2);
+            $gambar_2->move('gambar_wisata', $nama_gambar_2);
         }
 
         if($request->gambar_3){
             $gambar_3       = $request->gambar_3;
             $nama_gambar_3  = '3'.date('YmdHis.').$gambar_3->extension();
-            $gambar_3->move('gambar_produk', $nama_gambar_3);
+            $gambar_3->move('gambar_wisata', $nama_gambar_3);
         }
 
         if($request->gambar_4){
             $gambar_4       = $request->gambar_4;
             $nama_gambar_4  = '4'.date('YmdHis.').$gambar_4->extension();
-            $gambar_4->move('gambar_produk', $nama_gambar_4);
+            $gambar_4->move('gambar_wisata', $nama_gambar_4);
+        }
+
+        if($request->gambar_5){
+            $gambar_5       = $request->gambar_5;
+            $nama_gambar_5  = '5'.date('YmdHis.').$gambar_5->extension();
+            $gambar_5->move('gambar_wisata', $nama_gambar_5);
         }
 
         //proses insert
-        $produk = Produk::find($request->id);
+        $produk = Wisata::find($request->id);
         $insert = $produk->update([
-            'judul_produk'  => $request->judul_produk, 
-            'deskripsi'     => $request->deskripsi, 
-            'id_user'       => Auth::user()->id ?? 2,
-            'harga'         => $request->harga, 
-            'jenis_produk'  => $request->jenis_produk, 
+            'judul_wisata'  => $request->judul_wisata, 
+            'keterangan'    => $request->keterangan,
+            'koin'          => $request->koin, 
+            'kadaluarsa'    => $request->kadaluarsa, 
             'gambar_1'      => $nama_gambar_1 ?? $produk->gambar_1,
             'gambar_2'      => $nama_gambar_2 ?? $produk->gambar_2,
             'gambar_3'      => $nama_gambar_3 ?? $produk->gambar_3,
             'gambar_4'      => $nama_gambar_4 ?? $produk->gambar_4,
-            'stok'          => '9'
+            'gambar_5'      => $nama_gambar_5 ?? $produk->gambar_5,
         ]);
 
         return response()->json([
@@ -166,7 +179,7 @@ class ProdukController extends Controller
 
     public function delete(Request $request){
 
-        $data = Produk::find($request->id)->delete();
+        $data = Wisata::find($request->id)->delete();
 
         $data = [
             'responCode'    => 1,
@@ -176,47 +189,52 @@ class ProdukController extends Controller
         return response()->json($data);
     }
 
-    public function pilihanUKM(Request $request){
-
-        $data = Produk::find($request->id);
-
-        if($data->pilihan_ukm == ''){
-
-            $data->update([
-                'pilihan_ukm'   => 1
-            ]);
-        }else{
-
-            $data->update([
-                'pilihan_ukm'   => ''
-            ]);
-        }
-
-        $data = [
-            'responCode'    => 1,
-            'respon'        => 'Data Sukses Dihapus'
-        ];
-
-        return response()->json($data);
-    }
-
+    
     public function detail($id){
 
         //detail produk
-        $detail = Produk::join('users', 'users.id', '=', 'produks.id_user')->where('produks.id', $id)->first();
+        $detail = Wisata::join('users', 'users.id', '=', 'wisatas.id_user')->where('wisatas.id', $id)->first();
 
         //list produk
-        $produk = Produk::join('users', 'users.id', '=', 'produks.id_user')
+        $produk = Wisata::join('users', 'users.id', '=', 'wisatas.id_user')
                     ->select(
                         'users.name', 
-                        'produks.*'
+                        'wisatas.*'
                     )
                     ->inRandomOrder()->limit(8)->get();
 
 
-        return view('frontend.detail-produk', [
+        return view('frontend.detail-wisata', [
             'produk' => $produk, 
             'detail' => $detail
+        ]);
+    }
+
+    public function list(){
+
+        $cari   = request('cari');
+        $data   = DB::table('wisatas');
+
+        
+
+        if($cari == 'hot'){
+            $data   = $data->orderBy('koin', 'DESC')->paginate(8);
+
+        }else if($cari == 'up'){    
+            $data   = $data->orderBy('koin', 'DESC')->paginate(8);
+
+        }else if($cari == 'down'){
+            $data   = $data->orderBy('koin', 'ASC')->paginate(8);
+            
+        }else if($cari == 'all'){
+            $data   = $data->inRandomOrder()->limit(8)->get();
+
+        }else{
+            $data   = $data->where('judul_wisata', 'like', '%'.$cari.'%')->paginate(8);
+        }
+
+        return view('frontend.list-wisata', [
+            'data'  => $data
         ]);
     }
 
@@ -239,10 +257,6 @@ class ProdukController extends Controller
             $produk = $produk->where('judul_produk', 'like', '%'.$cari.'%')->paginate(8);
             $produk->appends($request->all());
         }
-
-        // $produk = $produk->where('judul_produk', 'like', '%'.$cari.'%')->inRandomOrder()->paginate(8);
-
-        // dd($produk);
 
         return view('frontend.produk', [
             'produk' => $produk, 
