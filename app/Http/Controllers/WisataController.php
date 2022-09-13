@@ -193,7 +193,14 @@ class WisataController extends Controller
     public function detail($id){
 
         //detail produk
-        $detail = Wisata::join('users', 'users.id', '=', 'wisatas.id_user')->where('wisatas.id', $id)->first();
+        $detail = Wisata::join('users', 'users.id', '=', 'wisatas.id_user')
+                        ->where('wisatas.id', $id)
+                        ->select(
+                            'wisatas.*', 
+                            'users.koin as user_koin'
+                        )
+                        // ->where('users.id', Auth::user()->id)
+                        ->first();
 
         //list produk
         $produk = Wisata::join('users', 'users.id', '=', 'wisatas.id_user')

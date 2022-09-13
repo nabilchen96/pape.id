@@ -34,8 +34,12 @@
                         5. pape.id hanya akan menanggung biaya menginap dan
                         wisata. <br>
 
-                        <a href="{{ url('tukar-koin') }}" style="border-radius: 25px; width: 100%;" class="btn btn-warning text-white shadow mt-4" type="button">
-                            <h3>Tukar 10.000 <i class="bi bi-coin"></i> Koin</h3>
+                        @php
+                            $koin = DB::table('wisatas')->where('id', request('id'))->value('koin');
+                        @endphp
+
+                        <a href="{{ url('store-tukar-koin') }}?id={{ request('id') }}" style="border-radius: 25px; width: 100%;" class="btn btn-warning text-white shadow mt-4" type="button">
+                            <h3>Tukar {{ $koin }} <i class="bi bi-coin"></i> Koin</h3>
                         </a>
                     </div>
                 </div>

@@ -61,7 +61,7 @@
             <div class="modal-content">
                 <form id="form">
                     <div class="modal-header p-3">
-                        <h5 class="modal-title m-2" id="exampleModalLabel">Produk Form</h5>
+                        <h5 class="modal-title m-2" id="exampleModalLabel">Wisata Form</h5>
                     </div>
                     <div class="modal-body">
                         <input type="hidden" name="id" id="id">

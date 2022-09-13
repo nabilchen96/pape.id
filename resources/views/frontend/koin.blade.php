@@ -9,7 +9,7 @@
             <div class="card-body">
                 <div class="text-center">
                     Total koin saya
-                    <h1 class="text-warning"><i class="bi bi-coin"></i> 2000</h1>
+                    <h1 class="text-warning"><i class="bi bi-coin"></i> {{ Auth::user()->koin }}</h1>
 
                     <br>
                     Selesaikan task, dapatkan koinnya dan tukarkan dengan destinasi wisata yang diinginkan
@@ -20,95 +20,63 @@
             <h3 style="margin-bottom: 0;">Daftar Tugas</h3>
             <span style="font-size: 12px;">Selesaikan Task dan Dapatkan Koin</span>
         </div>
-        {{-- <ul class="nav nav-lt-tab" style="border: 0;" role="tablist">
-            <li class="nav-item" style="margin-right: 5px;">
-                <a href="{{ url('report') }}" target="_blank" class="btn btn-primary mb-1"
-                    style="border-radius: 20px; padding-left: 25px; padding-right: 25px;">Task</a>
-            </li>
-            <li class="nav-item" style="margin-right: 5px;">
-                <button class="btn btn-primary position-relative" onclick="getData(0)" id="0"
-                    style="border-radius: 25px; padding-left: 25px; padding-right: 25px;">
-                    Tugas Diproses</span>
-                </button>
-            </li>
-            <li class="nav-item" style="margin-right: 5px;">
-                <button class="btn btn-primary" onclick="getData(1)" id="1"
-                    style="border-radius: 25px; padding-left: 25px; padding-right: 25px;">Tugas Selesai</button>
-            </li>
-            <li class="nav-item" style="margin-right: 5px;">
-                <button class="btn btn-primary" onclick="getData(1)" id="1"
-                    style="border-radius: 25px; padding-left: 25px; padding-right: 25px;">Tugas Ditolak</button>
-            </li>
-        </ul> --}}
-        <div class="card mb-2" style="border-radius: 15px;">
-            <div class="card-body p-2">
-                <div class="d-flex justify-content-between">
-                    <div class="card" style="
-                        background-size: cover;
-                        background-position: center;
-                        border: none;
-                        background-image: url('https://cdn.pixabay.com/photo/2016/11/23/18/29/cloudy-1854241_960_720.jpg'); 
-                        border-radius: 15px; 
-                        width: 35%">
-                        
-                    </div>
-                    <div style="margin-left: 10px; width: 65%;">
-                        <h6 class="mb-2 mt-1">Buat video pendek!</h6>
-                        <p>
-                            Buat video pendek dan upload dengan tema <a href="{{ url('detail-tugas') }}"> ...detail</a>
-                        </p>
-                        <span style="border-radius: 15px;" class="badge bg-primary">30 Orang</span>
-                        <span style="border-radius: 15px;" class="badge bg-warning">500 koin</span>
+        @php
+            $data = DB::table('tugas')
+                ->where('kuota', '>', 0)
+                ->paginate(3);
+        @endphp
+
+        <div class="row">
+            @foreach ($data as $item)
+                <div class="col-lg-6">
+                    <div class="card mb-2" style="border-radius: 15px;">
+                        <div class="card-body p-2">
+                            <div class="d-flex justify-content-between">
+                                <div class="card"
+                                    style="
+                                    background-size: cover;
+                                    background-position: center;
+                                    border: none;
+                                    background-image: url('{{ asset('gambar_tugas') }}/{{ $item->gambar }}'); 
+                                    border-radius: 15px; 
+                                    width: 35%">
+
+                                </div>
+                                <div style="margin-left: 10px; width: 65%;">
+                                    <h6 class="mb-2 mt-1">{{ substr($item->judul_tugas, 0, 25) }}</h6>
+                                    <p>
+                                        {{ substr($item->keterangan_tugas, 0, 45) }}<a
+                                            href="{{ url('detail-tugas') }}/{{ $item->id }}">
+                                            ...detail</a>
+                                    </p>
+                                    <span style="border-radius: 15px;" class="badge bg-primary">{{ $item->kuota }}
+                                        Orang</span>
+                                    <span style="border-radius: 15px;" class="badge bg-warning">{{ $item->koin }}
+                                        koin</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endforeach
         </div>
-        <div class="card mb-2" style="border-radius: 15px;">
-            <div class="card-body p-2">
-                <div class="d-flex justify-content-between">
-                    <div class="card" style="
-                        background-size: cover;
-                        background-position: center;
-                        border: none;
-                        background-image: url('https://cdn.pixabay.com/photo/2016/11/23/18/29/cloudy-1854241_960_720.jpg'); 
-                        border-radius: 15px; 
-                        width: 35%">
-                        
-                    </div>
-                    <div style="margin-left: 10px; width: 65%;">
-                        <h6 class="mb-2 mt-1">Buat Gambar Promosi</h6>
-                        <p>
-                            Buat gambar promosi dan upload dengan tema <a href="#"> ...detail</a>
-                        </p>
-                        <span style="border-radius: 15px;" class="badge bg-primary">100 Orang</span>
-                        <span style="border-radius: 15px;" class="badge bg-warning">150 koin</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card mb-2" style="border-radius: 15px;">
-            <div class="card-body p-2">
-                <div class="d-flex justify-content-between">
-                    <div class="card" style="
-                        background-size: cover;
-                        background-position: center;
-                        border: none;
-                        background-image: url('https://cdn.pixabay.com/photo/2016/11/23/18/29/cloudy-1854241_960_720.jpg'); 
-                        border-radius: 15px; 
-                        width: 35%">
-                        
-                    </div>
-                    <div style="margin-left: 10px; width: 65%;">
-                        <h6 class="mb-2 mt-1">Buat Gambar Promosi</h6>
-                        <p>
-                            Buat gambar promosi dan upload dengan tema <a href="#"> ...detail</a>
-                        </p>
-                        <span style="border-radius: 15px;" class="badge bg-primary">100 Orang</span>
-                        <span style="border-radius: 15px;" class="badge bg-warning">150 koin</span>
-                    </div>
-                </div>
-            </div>
+        <div class="d-flex justify-content-center">
+            {{ $data->links() }}
         </div>
     </div>
     <br><br><br><br>
 @endsection
+@push('script')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.7/dist/sweetalert2.all.min.js"></script>
+    <script>
+        @if ($message = Session::get('sukses'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Sukses',
+                text: 'Tugas Berhasil Diupload!',
+                timer: 3000,
+                showConfirmButton: false
+            })
+        @endif
+    </script>
+@endpush

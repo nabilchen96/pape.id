@@ -14,12 +14,12 @@
         <div style="margin-top: -240px;">
             <div class="row">
                 <div class="col-6">
-                    <a href="{{ url('/') }}">
+                    <a href="{{ url('/home') }}">
                         <i class="bi bi-arrow-left-circle text-white" style="font-size: 30px;"></i>
                     </a>
                 </div>
                 <div class="col-6">
-                    {{-- <img height="40px" src="{{ asset('papeid_logo.png') }}" alt=""> --}}
+
                 </div>
             </div>
         </div>
@@ -72,22 +72,20 @@
                         </li>
                     </ul>
                     <br><br>
-                    {{-- <h5>Interest</h5>
-                    <span class="badge bg-primary" style="border-radius: 15px;"><i class="bi bi-check-circle"></i> Hiking</span>
-                    <span class="badge bg-primary" style="border-radius: 15px;"><i class="bi bi-check-circle"></i>
-                        Trekking</span>
-                    <span class="badge bg-primary" style="border-radius: 15px;"><i class="bi bi-check-circle"></i> River
-                        Rafting</span>
-                    <span class="badge bg-primary" style="border-radius: 15px;"><i class="bi bi-check-circle"></i> Center
-                        Bridge</span>
-                    <span class="badge bg-primary" style="border-radius: 15px;"><i class="bi bi-check-circle"></i> Kids
-                        Playground</span>
-                    <br><br> --}}
                 </div>
             </div>
-            <a href="{{ url('tukar-koin') }}" style="border-radius: 25px; width: 100%;" class="btn btn-warning text-white shadow mt-4" type="button">
-                <h3>Tukar {{ number_format($detail->koin) }} <i class="bi bi-coin"></i> Koin</h3>
-            </a>
+            @if ($detail->koin > Auth::user()->koin)
+                <a style="border-radius: 25px; width: 100%;" class="btn btn-danger text-white shadow mt-4" type="button">
+                    <h3>{{ number_format($detail->koin) }} <i class="bi bi-coin"></i> Koin</h3>
+                    Maaf, koin anda belum mencukupi
+
+                    {{ \Auth::user()->koin }}
+                </a>
+            @else
+                <a href="{{ url('tukar-koin') }}?id={{ $detail->id }}" style="border-radius: 25px; width: 100%;" class="btn btn-warning text-white shadow mt-4" type="button">
+                    <h3>Tukar {{ number_format($detail->koin) }} <i class="bi bi-coin"></i> Koin</h3>
+                </a>
+            @endif
             <br><br>
 
             <div class="mb-3">

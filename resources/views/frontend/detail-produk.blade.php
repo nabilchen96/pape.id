@@ -14,7 +14,7 @@
         <div style="margin-top: -240px;">
             <div class="row">
                 <div class="col-6">
-                    <a href="{{ url('/') }}">
+                    <a href="{{ url('/home') }}">
                         <i class="bi bi-arrow-left-circle text-white" style="font-size: 30px;"></i>
                     </a>
                 </div>
@@ -65,17 +65,6 @@
                         </li>
                     </ul>
                     <br><br>
-                    {{-- <h5>Interest</h5>
-                    <span class="badge bg-primary" style="border-radius: 15px;"><i class="bi bi-check-circle"></i> Hiking</span>
-                    <span class="badge bg-primary" style="border-radius: 15px;"><i class="bi bi-check-circle"></i>
-                        Trekking</span>
-                    <span class="badge bg-primary" style="border-radius: 15px;"><i class="bi bi-check-circle"></i> River
-                        Rafting</span>
-                    <span class="badge bg-primary" style="border-radius: 15px;"><i class="bi bi-check-circle"></i> Center
-                        Bridge</span>
-                    <span class="badge bg-primary" style="border-radius: 15px;"><i class="bi bi-check-circle"></i> Kids
-                        Playground</span>
-                    <br><br> --}}
                 </div>
             </div>
             <br><br>

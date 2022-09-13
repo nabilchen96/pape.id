@@ -13,36 +13,41 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//LANDING
-Route::get('/', 'App\Http\Controllers\WelcomeController@index');
-
 //LOGIN & REGISTER
 Route::get('/login', 'App\Http\Controllers\AuthController@login')->name('login');
+Route::get('/', 'App\Http\Controllers\AuthController@login')->name('login');
 Route::post('/loginProses', 'App\Http\Controllers\AuthController@loginProses');
 Route::get('/register', 'App\Http\Controllers\AuthController@register');
 Route::post('/registerProses', 'App\Http\Controllers\AuthController@registerProses');
 
+//HOME OR LANDING PAGE
+Route::get('/home', 'App\Http\Controllers\WelcomeController@index');
 
 //FILTER WISATA
 Route::get('/list-wisata', 'App\Http\Controllers\WisataController@list');
 
+//LIST PRODUK
+Route::get('/list-produk', function(){ return view('frontend.list-produk'); });
 
 //DETAIL WISATA
 Route::get('/detail-wisata/{id}', 'App\Http\Controllers\WisataController@detail');
 
-
 //DETAIL PRODUK
 Route::get('/detail-produk/{id}', 'App\Http\Controllers\ProdukController@detail');
 
-
-Route::get('/tukar-koin', function(){
-    return view('frontend.tukar-koin');
-});
+//TUKAR KOIN
+Route::get('/tukar-koin', function(){ return view('frontend.tukar-koin'); });
+Route::get('/store-tukar-koin', 'App\Http\Controllers\TukarKoinController@store');
 
 //KOIN
-Route::get('/koin', function(){
-    return view('frontend.koin');
-});
+Route::get('/koin', function(){ return view('frontend.koin'); });
+
+//DETAIL TUGAS ATAU KOIN
+Route::get('/detail-tugas/{id}', 'App\Http\Controllers\TugasController@detail');
+Route::post('/store-kumpul-task', 'App\Http\Controllers\KumpulTugasController@store');
+
+//USER PROFIL
+Route::get('/user-profil', 'App\Http\Controllers\UserProfilController@show');
 
 
 //BACKEND
@@ -80,12 +85,21 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/back/delete-product', 'App\Http\Controllers\ProdukController@delete');
     Route::post('/back/pilihan-UKM-product', 'App\Http\Controllers\ProdukController@pilihanUKM');
 
-    //WISATA
+    //TUGAS
     Route::get('/back/tugas', 'App\Http\Controllers\TugasController@index');
     Route::get('/back/data-tugas', 'App\Http\Controllers\TugasController@data');
     Route::post('/back/store-tugas', 'App\Http\Controllers\TugasController@store');
     Route::post('/back/update-tugas', 'App\Http\Controllers\TugasController@update');
     Route::post('/back/delete-tugas', 'App\Http\Controllers\TugasController@delete');
+
+    //KUMPUL TUGAS
+    Route::get('/back/kumpul-task', 'App\Http\Controllers\KumpulTugasController@index');
+    Route::get('/back/data-kumpul-task', 'App\Http\Controllers\KumpulTugasController@data');
+    Route::post('/back/tinjau-task', 'App\Http\Controllers\KumpulTugasController@tinjauTugas');
+
+    //TUKAR KOIN
+    Route::get('/back/tukar-koin', 'App\Http\Controllers\TukarKoinController@index');
+    Route::get('/back/data-tukar-koin', 'App\Http\Controllers\TukarKoinController@data');
 
     //BERITA
     Route::get('/back/beritas', 'App\Http\Controllers\BeritaController@index');

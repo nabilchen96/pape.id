@@ -34,17 +34,29 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="{{ url('back/kumpul-task') }}">
+                <i class="bi bi-file-earmark-text menu-icon"></i>
+                <span class="menu-title">Kumpul Tugas</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url('back/tukar-koin') }}">
+                <i class="bi bi-arrow-repeat menu-icon"></i>
+                <span class="menu-title">Tukar Koin</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="{{ url('back/product') }}">
                 <i class="bi bi-box-seam menu-icon"></i>
                 <span class="menu-title">Produk</span>
             </a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" href="{{ url('back/beritas') }}">
                 <i class="bi bi-newspaper menu-icon"></i>
                 <span class="menu-title">Berita</span>
             </a>
-        </li>
+        </li> --}}
         {{-- <li class="nav-item">
             <a class="nav-link" href="{{ url('back/diskusi-produk') }}">
                 <i class="bi bi-chat-right-text menu-icon"></i>
@@ -57,12 +69,12 @@
                 <span class="menu-title">Diskusi Berita</span>
             </a>
         </li> --}}
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" href="{{ url('back/profil') }}-{{ Auth::user()->id ?? 2 }}">
                 <i class="bi bi-person-fill menu-icon"></i>
                 <span class="menu-title">User Profil</span>
             </a>
-        </li>
+        </li> --}}
         {{-- <li class="nav-item">
             <a class="nav-link" href="https://drive.google.com/file/d/1PYG9t6BHHg1Xck_YQpt8j0jhNBnhhsB-/view?usp=sharing">
                 <i class="icon-paper menu-icon"></i>

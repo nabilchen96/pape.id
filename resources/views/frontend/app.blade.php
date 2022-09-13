@@ -62,7 +62,7 @@
     <nav class="navbar bg-white navbar-expand fixed-bottom" style="bottom: -10px; left: -15px; right: -15px;">
         <ul class="navbar-nav nav-justified w-100">
             <li class="nav-item">
-                <a href="{{ url('/') }}" class="nav-link">
+                <a href="{{ url('/home') }}" class="nav-link">
                     <i style="font-size: 20px;" class="bi bi-house-door"></i>
                     <br>
                     <span style="font-size: 10px">HOME</span>
@@ -83,7 +83,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ url('user-profil') }}" class="nav-link">
                     <i style="font-size: 20px;" class="bi bi-person"></i>
                     <br>
                     <span style="font-size: 10px">PROFILE</span>
@@ -92,6 +92,7 @@
         </ul>
     </nav>
     @yield('content')
+    @stack('script')
 </body>
 
 </html>

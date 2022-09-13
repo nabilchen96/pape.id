@@ -1,8 +1,15 @@
+@php
+    $data_user = Auth::user();
+
+@endphp
+
+@if (Auth::user()->role == 'User')
+    <script>
+    window.location = "/home";
+    </script>
+@endif
 @extends('backend.app')
 @section('content')
-    @php
-        $data_user = Auth::user();
-    @endphp
     <div class="row" style="margin-top: -200px;">
         <div class="col-md-12 grid-margin">
             <div class="row">

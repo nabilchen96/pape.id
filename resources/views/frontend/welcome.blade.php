@@ -74,8 +74,10 @@
         </ul>
 
         <div class="mb-3 mt-4">
-            <h3 style="margin-bottom: 0;">Promosikan Usaha Kecil Anda <br> dengan Pape.id</h3>
-            <span style="font-size: 12px;">Lihat Lainnya <i class="bi bi-arrow-right"></i></span>
+            <h3 style="margin-bottom: 0;">Produk UKM menarik <br>lainnya dari Pape.id</h3>
+            <a href="{{ url('list-produk') }}">
+                <span style="font-size: 12px;">Lihat Lainnya <i class="bi bi-arrow-right"></i></span>
+            </a>
         </div>
         <ul class="nav nav-lt-tab" style="border: 0;" role="tablist">
             @foreach ($produk as $item)
@@ -97,3 +99,17 @@
     </div>
     <br><br><br><br>
 @endsection
+@push('script')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.7/dist/sweetalert2.all.min.js"></script>
+    <script>
+        @if ($message = Session::get('sukses'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Sukses',
+                text: 'Koin Berhasil Ditukarkan, untuk informasi lebih lanjut silahkan buka email anda',
+                timer: 3000,
+                showConfirmButton: false
+            })
+        @endif
+    </script>
+@endpush

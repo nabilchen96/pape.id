@@ -41,7 +41,7 @@
                             <thead>
                                 <tr>
                                     <th width="5%">No</th>
-                                    <th>Gambar</th>
+                                    <th width="10%">Gambar</th>
                                     <th width="300px">Keterangan</th>
                                     <th>Kuota</th>
                                     <th>Koin</th>
@@ -61,7 +61,7 @@
             <div class="modal-content">
                 <form id="form">
                     <div class="modal-header p-3">
-                        <h5 class="modal-title m-2" id="exampleModalLabel">Produk Form</h5>
+                        <h5 class="modal-title m-2" id="exampleModalLabel">Tugas Form</h5>
                     </div>
                     <div class="modal-body">
                         <input type="hidden" name="id" id="id">
@@ -85,7 +85,7 @@
                         <div class="form-group">
                             <label>Gambar <span class="text-danger" style="font-size: 12px;">(Max size:
                                     500kb)</span></label>
-                            <input name="gambar_1" id="gambar_1" type="file" class="form-control">
+                            <input name="gambar" id="gambar" type="file" class="form-control">
                         </div>
                     </div>
                     <div class="modal-footer p-3">
@@ -132,7 +132,7 @@
                                             <div class="card shadow" style="
                                                 background-size: cover; 
                                                 background-position: center; 
-                                                background-image: url('/gambar_tugas/${row.gambar_1}'); 
+                                                background-image: url('/gambar_tugas/${row.gambar}'); 
                                                 aspect-ratio: 1/1; 
                                                 width: 100%;"></div>
                                         </div>
@@ -141,7 +141,7 @@
                     },
                     {
                         render: function(data, type, row, meta) {
-                            return `${row.judul_wisata} <br><br> <b>Deskripsi:</b><br>${row.keterangan_tugas.slice(0, 150)} ...`
+                            return `${row.judul_tugas} <br><br> <b>Deskripsi:</b><br>${row.keterangan_tugas.slice(0, 150)} ...`
                         }
                     },
                     {
@@ -190,10 +190,10 @@
             if (recipient) {
                 var modal = $(this)
                 modal.find('#id').val(cokData[0].id)
-                modal.find('#judul_wisata').val(cokData[0].judul_wisata)
-                modal.find('#keterangan').val(cokData[0].keterangan)
+                modal.find('#judul_tugas').val(cokData[0].judul_tugas)
+                modal.find('#keterangan').val(cokData[0].keterangan_tugas)
                 modal.find('#koin').val(cokData[0].koin)
-                modal.find('#kadaluarsa').val(cokData[0].kadaluarsa)
+                modal.find('#kuota').val(cokData[0].kuota)
             }
         })
 
@@ -207,7 +207,7 @@
 
             axios({
                     method: 'post',
-                    url: formData.get('id') == '' ? '/back/store-wisata' : '/back/update-wisata',
+                    url: formData.get('id') == '' ? '/back/store-tugas' : '/back/update-tugas',
                     data: formData,
                 })
                 .then(function(res) {
@@ -253,7 +253,7 @@
             }).then((result) => {
 
                 if (result.value) {
-                    axios.post('/back/delete-wisata', {
+                    axios.post('/back/delete-tugas', {
                             id
                         })
                         .then((response) => {

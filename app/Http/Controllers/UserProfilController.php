@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Models\UserProfil;
 use App\Models\Produk;
+use Auth;
 
 class UserProfilController extends Controller
 {
@@ -55,30 +56,50 @@ class UserProfilController extends Controller
         return back();
     }
 
-    public function show($id){
+    public function show(){
+
+        $user = Auth::user()->id;
 
         $data = DB::table('users')
                 ->leftjoin('user_profils', 'user_profils.id_user', '=', 'users.id')
                 ->select(
                     'users.name', 
                     'users.id as user_id',
-                    'user_profils.*'
+                    // 'user_profils.*',
+                    'users.email', 
+                    'users.koin'
                 )
-                ->where('users.id', $id)
+                ->where('users.id', $user)
                 ->first();
 
-        //list produk
-        $produk = Produk::join('users', 'users.id', '=', 'produks.id_user')
-                    ->select(
-                        'users.name', 
-                        'produks.*'
-                    )
-                    ->where('produks.id_user', $id)
-                    ->inRandomOrder()->paginate(8);
+        $tugas = [];
 
-        return view('frontend.profil', [
-            'data'    => $data, 
-            'produk'  => $produk
+        //RIWAYAT TUGAS
+        if(request('cari') == 'riwayat-koin'){
+
+            $tugas = DB::table('tukar_koins')
+                        ->join('wisatas', 'wisatas.id', '=', 'tukar_koins.id_wisata')
+                        ->join('users', 'users.id', '=', 'tukar_koins.id_user')
+                        ->where('tukar_koins.id_user', $user)
+                        ->select(
+                            'wisatas.*'
+                        )
+                        ->paginate(3);
+
+        }else{
+
+            $tugas  = DB::table('kumpul_tugas')
+                        ->join('tugas', 'tugas.id', '=', 'kumpul_tugas.id_tugas')
+                        ->where('kumpul_tugas.id_user', $user)
+                        ->orderByRaw('kumpul_tugas.status = ? desc', ['Diproses'])
+                        ->paginate(3);
+        }
+
+        //RIWAYAT PENUKARAN KOIN
+
+        return view('frontend.user-profil', [
+            'data'      => $data,
+            'tugas'     => $tugas 
         ]);
     }
 }
