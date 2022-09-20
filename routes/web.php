@@ -46,6 +46,9 @@ Route::get('/koin', function(){ return view('frontend.koin'); });
 Route::get('/detail-tugas/{id}', 'App\Http\Controllers\TugasController@detail');
 Route::post('/store-kumpul-task', 'App\Http\Controllers\KumpulTugasController@store');
 
+//PELATIHAN
+Route::get('/pelatihan', function(){ return view('frontend.pelatihan'); });
+
 //USER PROFIL
 Route::get('/user-profil', 'App\Http\Controllers\UserProfilController@show');
 

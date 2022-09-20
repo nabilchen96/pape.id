@@ -20,6 +20,10 @@
         </form>
         <ul class="nav nav-lt-tab mt-4" style="border: 0;" role="tablist">
             <li class="nav-item" style="margin-right: 5px;">
+                <a href="{{ url('pelatihan') }}" class="btn btn-primary mb-3"
+                    style="border-radius: 20px; padding-left: 25px; padding-right: 25px;">Pelatihan</a>
+            </li>
+            <li class="nav-item" style="margin-right: 5px;">
                 <a href="{{ url('list-wisata?cari=hot') }}" class="btn btn-primary mb-3"
                     style="border-radius: 20px; padding-left: 25px; padding-right: 25px;"><i class="bi bi-fire"></i> Hot</a>
             </li>
