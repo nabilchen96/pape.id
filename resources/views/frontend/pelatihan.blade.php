@@ -28,15 +28,15 @@
                         2. Tata cara memandu wisatawan <br>
                         3. Sertifikat beratas namakan pape.id <br>
 
-                        <div class="fixed-bottom p-4">
-                            <a href="https://wa.me/081271137583" target="_blank"
-                                style="margin-bottom: 100px; width: 100%;" class="btn btn-primary text-white shadow mt-4"
-                                type="button">
-                                <h3>Rp. 250.000</h3>
-                            </a>
-                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="">
+                <a href="https://wa.me/081271137583"
+                    style="margin-bottom: 100px; width: 100%;" class="btn btn-primary text-white shadow mt-4"
+                    type="button">
+                    <h3>Rp. 250.000</h3>
+                </a>
             </div>
         </div>
     </div>
