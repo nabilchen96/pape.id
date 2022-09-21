@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="">
-                <a href="https://wa.me/081271137583"
+                <a href="#"
                     style="margin-bottom: 100px; width: 100%;" class="btn btn-primary text-white shadow mt-4"
                     type="button">
                     <h3>Rp. 250.000</h3>
