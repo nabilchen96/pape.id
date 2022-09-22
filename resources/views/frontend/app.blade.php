@@ -76,7 +76,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ url('tutorial') }}" class="nav-link">
                     <i style="font-size: 20px;" class="bi bi-journal-text"></i>
                     <br>
                     <span style="font-size: 10px">TUTORIAL</span>

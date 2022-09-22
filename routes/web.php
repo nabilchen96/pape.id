@@ -49,6 +49,9 @@ Route::post('/store-kumpul-task', 'App\Http\Controllers\KumpulTugasController@st
 //PELATIHAN
 Route::get('/pelatihan', function(){ return view('frontend.pelatihan'); });
 
+//TUTORIAL
+Route::get('/tutorial', function(){ return view('frontend.tutorial'); });
+
 //USER PROFIL
 Route::get('/user-profil', 'App\Http\Controllers\UserProfilController@show');
 
