@@ -10,19 +10,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
     <style>
-        html{
+        html {
             /* height: 100%; */
         }
 
-        a{
+        a {
             text-decoration: none;
         }
-        body{
+
+        body {
             background: linear-gradient(white, #1c96ee);
             height: 100%;
         }
 
-        .search::placeholder{
+        .search::placeholder {
             color: #c5c9d2;
         }
 
@@ -93,6 +94,10 @@
     </nav>
     @yield('content')
     @stack('script')
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Models\UserProfil;
+use App\Models\User;
 use App\Models\Produk;
 use Auth;
+use Illuminate\Support\Facades\Validator;
 
 class UserProfilController extends Controller
 {
@@ -67,7 +69,7 @@ class UserProfilController extends Controller
                     'users.id as user_id',
                     // 'user_profils.*',
                     'users.email', 
-                    'users.koin'
+                    'users.koin',
                 )
                 ->where('users.id', $user)
                 ->first();
@@ -100,6 +102,37 @@ class UserProfilController extends Controller
         return view('frontend.user-profil', [
             'data'      => $data,
             'tugas'     => $tugas 
+        ]);
+    }
+
+    public function update(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'foto_profil'   => 'nullable|mimes:png,jpg,JPEG,PNG|max: 1024',
+            'id'            => 'required'
+        ]);
+
+        if($validator->fails()){
+            return response()->json($validator->errors());
+        }
+
+        if($request->foto_profil){
+            $foto_profil       = $request->foto_profil;
+            $nama_foto_profil  = date('YmdHis.').$foto_profil->extension();
+            $foto_profil->move('foto_profil', $nama_foto_profil);
+        }
+
+        $user = User::find($request->id);
+        $data = $user->update([
+            'name'          => $request->name,
+            'password'      => $request->password ? Hash::make($request->password) : $user->password, 
+            'foto_profil'   => $nama_foto_profil ?? $user->foto_profil
+        ]);
+
+        return response()->json([
+            'responCode'  => 1,
+            'message'     => 'Success!',
+            'data'        => $data
         ]);
     }
 }

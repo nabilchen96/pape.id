@@ -54,6 +54,7 @@ Route::get('/tutorial', function(){ return view('frontend.tutorial'); });
 
 //USER PROFIL
 Route::get('/user-profil', 'App\Http\Controllers\UserProfilController@show');
+Route::post('/update-profil', 'App\Http\Controllers\UserProfilController@update');
 
 
 //BACKEND
